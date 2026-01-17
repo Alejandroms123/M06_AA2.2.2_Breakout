@@ -1,18 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BrickGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject _brick;
-
     [SerializeField] private int _rows;
     [SerializeField] private int _columns;
-
     [SerializeField] private float _spacing;
-    [SerializeField] private float _saturationStep;
     [SerializeField] private Vector2 _startPosition;
+
+    private List<Brick> _bricks = new List<Brick>();
 
     public void GenerateBricks()
     {
+        _bricks.Clear();
+
         Vector2 prefabSize = _brick.transform.localScale;
 
         float totalWidth = _columns * prefabSize.x + (_columns - 1) * _spacing;
@@ -30,16 +32,29 @@ public class BrickGenerator : MonoBehaviour
                     topLeft.x + col * (prefabSize.x + _spacing),
                     topLeft.y - row * (prefabSize.y + _spacing));
 
-                GameObject brick = Instantiate(_brick, position, Quaternion.identity, transform);
-                Brick b = brick.GetComponent<Brick>();
+                GameObject brickObj = Instantiate(_brick, position, Quaternion.identity, transform);
+                Brick b = brickObj.GetComponent<Brick>();
                 if (b != null)
+                {
                     b.Initialize(row, col, _rows, _columns);
+                    b.Generator = this;
+                    _bricks.Add(b);
+                }
             }
         }
     }
 
+    public void NotifyBrickDestroyed(Brick brick)
+    {
+        if (_bricks.Contains(brick))
+            _bricks.Remove(brick);
+
+        if (_bricks.Count == 0)
+            GameManager.Instance.Win();
+    }
+
     public bool AllBricksDestroyed()
     {
-        return transform.childCount == 0;
+        return _bricks.Count == 0;
     }
 }

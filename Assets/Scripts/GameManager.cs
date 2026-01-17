@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,9 +54,6 @@ public class GameManager : MonoBehaviour
 
         _score += points;
         UpdateUI();
-
-        if (_brickGenerator.AllBricksDestroyed())
-            Win();
     }
 
     public void RemoveLife(int amount = 1)
@@ -82,14 +78,14 @@ public class GameManager : MonoBehaviour
         BallManager.Instance.RegisterBall(newBall);
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         State = GameState.GameOver;
         _gameOverUI.SetActive(true);
         FreezeAllBalls();
     }
 
-    private void Win()
+    public void Win()
     {
         State = GameState.Win;
         _winUI.SetActive(true);

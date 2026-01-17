@@ -1076,12 +1076,12 @@ GameObject:
   - component: {fileID: 1533258145}
   - component: {fileID: 1533258144}
   m_Layer: 5
-  m_Name: You Won!Text (TMP) (1)
+  m_Name: You Won!Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1533258143
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1771,7 +1771,6 @@ MonoBehaviour:
   _rows: 6
   _columns: 10
   _spacing: 0.1
-  _saturationStep: 0
   _startPosition: {x: 0, y: 3.3}
 --- !u!81 &2089413969
 AudioListener:

@@ -20,7 +20,7 @@ public class BallManager : MonoBehaviour
         if (_balls.Contains(ball))
             _balls.Remove(ball);
 
-        if (_balls.Count == 0)
+        if (_balls.Count == 0 && GameManager.Instance.State == GameState.Playing)
             GameManager.Instance.RemoveLife(1);
     }
 
@@ -42,7 +42,10 @@ public class BallManager : MonoBehaviour
     public void SpawnExtraBall()
     {
         Ball newBall = Instantiate(_ballPrefab, Vector2.zero, Quaternion.identity);
-        newBall.Launch();
+
+        float randomAngle = Random.Range(-45f, 45f);
+
+        newBall.Launch(randomAngle);
         RegisterBall(newBall);
     }
 

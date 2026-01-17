@@ -33,6 +33,10 @@ public class PowerUps : MonoBehaviour
             Activate(collision.transform.position);
             Destroy(gameObject);
         }
+        else if (collision.name == "DeathZone")
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Activate(Vector2 paddlePosition)

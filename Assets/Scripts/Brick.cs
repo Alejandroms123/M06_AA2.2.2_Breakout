@@ -4,9 +4,9 @@ using static PowerUps;
 public class Brick : MonoBehaviour
 {
     public int _points = 1;
-    public System.Action OnDestroyCallback;
     [SerializeField] private GameObject _powerUpPrefab;
     private SpriteRenderer _sr;
+    public BrickGenerator Generator { get; set; }
 
     private void Awake()
     {
@@ -44,7 +44,8 @@ public class Brick : MonoBehaviour
                 powerUpScript.Initialize(type);
         }
 
-        OnDestroyCallback?.Invoke();
+        Generator.NotifyBrickDestroyed(this);
+
         Destroy(gameObject);
     }
 }
